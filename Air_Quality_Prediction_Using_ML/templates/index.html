@@ -1,0 +1,88 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Air Quality Prediction System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        body {
+            background-color:lavender;
+        }
+        .container {
+            background-color: rgb(246, 190, 87);
+            border-radius: 20px;
+            padding: 20px;
+            color: rgb(10, 9, 9);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            margin-bottom: 20px;
+            color:rgb(10, 9, 9);
+            font-weight:bold;
+
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        .prediction-output {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #000;
+            display:inline-flexbox;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container my-4">
+        <h1 class="text-center text-success">Air Quality Prediction System</h1>
+        <h4 class="text-center text-danger">Input All Features Here</h4>
+
+        <form action="/predict" method="post">
+            <div class="form-group">
+                <label for="Year">Year:</label>
+                <input type="number" id="Year" name="Year" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="Month">Month:</label>
+                <input type="number" id="Month" name="Month" class="form-control" min="1" max="12" required>
+            </div>
+            <div class="form-group">
+                <label for="Day">Day:</label>
+                <input type="number" id="Day" name="Day" class="form-control" min="1" max="31" required>
+            </div>
+            <div class="form-group">
+                <label for="Hour">Hour:</label>
+                <input type="number" id="Hour" name="Hour" class="form-control" min="0" max="23" required>
+            </div>
+            <div class="form-group">
+                <label for="Day_of_Week">Day of Week (0=Monday, 6=Sunday):</label>
+                <input type="number" id="Day_of_Week" name="Day_of_Week" class="form-control" min="0" max="6" required>
+            </div>
+            <div class="form-group">
+                <label for="Season">Season (0:Autumn , 1:Monsoon , 2:Summer , 3:Winter):</label>
+                <input type="number" id="Season" name="Season" class="form-control" min="0" max="3" required>
+            </div>
+            <button type="submit" class="btn btn-danger btn-lg btn-block">Predict</button>
+        </form>
+
+        {% if prediction %}
+        <div class="prediction-output text-center">
+        <h4>Predicted PM2.5 Value:</h4>
+         <h3>{{ prediction }}</h3>
+         <h4>Air Quality Category:</h4>
+         <h3>{{ air_quality_category }}</h3>
+      </div>
+        {% endif %}
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</body>
+</html>
